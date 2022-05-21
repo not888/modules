@@ -52,7 +52,7 @@ local function tobase10(value)
 	return n
 end
 
-local function compressor.compress(text)
+function compressor.compress(text)
 	local dictionary = copy(dictionary)
 	local key, sequence, size = "", {}, #dictionary
 	local width, spans, span = 1, {}, 0
@@ -76,12 +76,12 @@ local function compressor.compress(text)
 			dictionary[new], dictionary[size] = size, new
 		end
 	end
-    listkey(key)
+	listkey(key)
 	spans[width] = span
-    return table.concat(spans, ",").."|"..table.concat(sequence)
+	return table.concat(spans, ",").."|"..table.concat(sequence)
 end
 
-local function compressor.decompress(text)
+function compressor.decompress(text)
 	local dictionary = copy(dictionary)
 	local sequence, spans, content = {}, text:match("(.-)|(.*)")
 	local groups, start = {}, 1
